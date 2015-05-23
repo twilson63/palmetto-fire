@@ -32,7 +32,7 @@ module.exports = function (config, callback) {
   // })
   if (config.subscription && config.subscription.subject) {
     config.subscription.subject.forEach(function(s) {
-      var query = ref.childs(s)
+      var query = ref.child(s)
       if (config.sequence && config.sequence === 'now') {
         query = query.endAt().limit(1)
       }
