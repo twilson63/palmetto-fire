@@ -76,5 +76,5 @@ var has = R.curry(function (name, items, data) {
 // curry
 var send = R.curry(function (ee, data) {
   if (data)
-    ee.emit([data.subject, data.verb].join('/'), data)
+    ee.emit([data.subject, data.verb, data.type].join('/'), data)
 })
