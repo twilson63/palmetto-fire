@@ -58,9 +58,9 @@ module.exports = function (config, callback) {
     })
   }
 
-  function on (subject, verb, fn) {
+  function on (subject, verb, type, fn) {
     // TODO: listen to changes 
-    ee.on([subject, verb].join('/'), fn)
+    ee.on([subject, verb, type].join('/'), fn)
   }
   
 }
