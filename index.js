@@ -21,7 +21,7 @@ module.exports = function (config, callback) {
 
   // TODO: Validate Config
   var ref = new Firebase(config.endpoint);
-
+  var count = 0
 
   // ref.authWithCustomToken(config.token, function(e) {
   //   if (e) return console.log(e)
@@ -32,12 +32,21 @@ module.exports = function (config, callback) {
   // })
   if (config.subscription && config.subscription.subject) {
     config.subscription.subject.forEach(function(s) {
-      ref.child(s).on('child_added', notify)
+      var query = ref.childs(s)
+      if (config.sequence && config.sequence === 'now') {
+        query = query.endAt().limit(1)
+      }
+      query.on('child_added', notify)
     })  
   }
   
 
   function notify (snapshot) {
+    if (config.sequence && config.sequence === 'now' && count === 0) {
+      count += 1
+      return
+    }
+    count += 1
     var data = snapshot.val()
     //console.log(data)
     R.pipe(
@@ -45,6 +54,7 @@ module.exports = function (config, callback) {
       has('type', config.subscription.type),
       send(ee)
     )(data)
+
   }
 
   function emit (subject, verb, type, object) {
