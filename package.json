@@ -13,5 +13,19 @@
     "firebase": "^2.2.5",
     "ramda": "^0.14.0",
     "tap": "^1.1.0"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "devDependencies": {
+    "tap": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/twilson63/palmetto-fire.git"
+  },
+  "bugs": {
+    "url": "https://github.com/twilson63/palmetto-fire/issues"
+  },
+  "homepage": "https://github.com/twilson63/palmetto-fire"
 }

@@ -47,11 +47,12 @@ module.exports = function (config, callback) {
     )(data)
   }
 
-  function emit (subject, verb, object) {
+  function emit (subject, verb, type, object) {
     // TODO: post to firebase
     ref.child(subject).push({
       subject: subject,
       verb: verb,
+      type: type,
       object: object,
       session: config.session || null
     })

@@ -6,7 +6,7 @@ test('subscribe', function (t) {
     endpoint: 'https://tinylog.firebaseio.com/',
     subscription: {
       subject: ['foo'],
-      type: ['*dcc'],
+      type: ['*'],
       verb: ['*']
     }
   }, function (err, ee) {
@@ -18,7 +18,7 @@ test('subscribe', function (t) {
 
     setTimeout(function() {
       console.log('tick')
-      ee.emit('foo', 'bar', { meta: { foo: 'bar' }})
+      ee.emit('foo', 'bar', 'request', { meta: { foo: 'bar' }})
     }, 1000)
     
   })

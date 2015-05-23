@@ -5,7 +5,7 @@ test('publish', function (t) {
   pf({
     endpoint: 'https://tinylog.firebaseio.com/'
   }, function (err, ee) {
-    ee.emit('foo', 'bar', { meta: { foo: 'bar' }})
+    ee.emit('foo', 'bar', 'request', { meta: { foo: 'bar' }})
     t.end()
   })
 })
