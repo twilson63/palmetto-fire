@@ -13,7 +13,7 @@ module.exports = function (config) {
   // subscribe
   ref.endAt().limit(1).on('child_added', notify) 
 
-  function notify (shapshot) {
+  function notify (snapshot) {
     count += 1
     if (count === 1) return
     
