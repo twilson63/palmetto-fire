@@ -3,7 +3,6 @@ var EventEmitter = require('events').EventEmitter
 var ee = new EventEmitter()
 
 module.exports = function (config) {
-  var count = 0
   // validate config
   if (!config.endpoint) throw new Error('endpoint required!') 
   if (!config.app) throw new Error('app required!')
@@ -15,8 +14,9 @@ module.exports = function (config) {
   ref.endAt().limit(1).on('child_added', notify) 
 
   function notify (shapshot) {
-    if (count === 0) return
     count += 1
+    if (count === 1) return
+    
     var e = snapshot.val()
     if (e.to) ee.emit(e.to, e)
   }
