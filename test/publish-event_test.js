@@ -12,7 +12,7 @@ test('publish', function (t) {
       return fbMock
     },
     on: function (s, fn) {
-      t.equals(s, 'child_added')
+      t.equals(s, 'child_added', 'listening to child_added')
     },
     push: function (event) {
       //console.log(event)
@@ -22,7 +22,7 @@ test('publish', function (t) {
         subject: 'widget',
         verb: 'create',
         object: { data: 'goes here'}
-      })
+      }, 'event is pushed to firebase')
     }
   }
 

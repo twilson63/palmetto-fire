@@ -1,25 +1,51 @@
 var test = require('tap').test
-var pf = require('../')
+var rewire = require('rewire')
+var palmetto = rewire('../')
 
 test('subscribe', function (t) {
-  pf({
-    endpoint: 'https://tinylog.firebaseio.com/',
-    subscription: {
-      subject: ['foo'],
-      type: ['*'],
-      verb: ['*']
-    }
-  }, function (err, ee) {
-    ee.on('foo', 'bar', function (data) {
-      console.log('ping')
-      console.log(data)
-      t.end()
-    })
 
-    setTimeout(function() {
-      console.log('tick')
-      ee.emit('foo', 'bar', 'request', { meta: { foo: 'bar' }})
-    }, 1000)
-    
+  var fbMock = {
+    endAt: function () {
+      return fbMock
+    },
+    limit: function () {
+      return fbMock
+    },
+    on: function (s, fn) {
+      t.equals(s, 'child_added', 'looking up child_added')
+      // should skip first event...
+      setTimeout(function() {
+        fn({
+          val: function () {
+            return { foo: 'bar'}
+          }
+        })
+      }, 50)
+      // should handle second
+      setTimeout(function() {
+        fn({
+          val: function () {
+            return { to: 'beepboop' }
+          }
+        })
+      }, 100)
+    },
+    push: function (event) {
+      
+    }
+  }
+
+  palmetto.__set__('Firebase', function () {
+    return fbMock
+  })
+
+  var ee = palmetto({
+    endpoint: 'https://tinylog.firebaseio.com/',
+    app: 'tinylog'
+  })
+
+  ee.on('beepboop', function (event) {
+    t.deepEquals(event, { to: 'beepboop' }, 'received notification of event')
+    t.end()
   })
 })

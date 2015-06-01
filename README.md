@@ -2,6 +2,7 @@
 
 Palmetto Fire is a module that uses firebase as a commit-log system to support microservices, the palmetto module works for both the server and the browser
 
+[![build status](https://secure.travis-ci.org/twilson63/palmetto-fire.png)](http://travis-ci.org/twilson63/palmetto-fire)
 
 ## Usage
 
