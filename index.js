@@ -1,5 +1,6 @@
 var Firebase = require('firebase')
-var EventEmitter = require('events').EventEmitter
+var events = require('events')
+var EventEmitter = events.EventEmitter
 var ee = new EventEmitter()
 
 module.exports = function (config) {
