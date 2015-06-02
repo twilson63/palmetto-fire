@@ -2,35 +2,56 @@
 
 Palmetto Fire is a module that uses firebase as a commit-log system to support microservices, the palmetto module works for both the server and the browser
 
-[![build status](https://secure.travis-ci.org/twilson63/palmetto-fire.png)](http://travis-ci.org/twilson63/palmetto-fire)
+[![Build Status](https://travis-ci.org/twilson63/palmetto-fire.svg?branch=master)](https://travis-ci.org/twilson63/palmetto-fire)
 
 ## Usage
 
 ``` js
-var pf = require('@twilson63/palmetto-fire')
+var palmetto = require('@twilson63/palmetto-fire')
 
-var ee = pf({
+var ee = palmetto({
   endpoint: 'https://firebase.io/foobar',
-  token: '...',
-  subscription: {
-    subject: ['*'],
-    type: ['response'],
-    verb: ['*'],
-    session: '...',
-    sequence: 'now'
-  }
+  token: '...firebase auth token...'
+  app: '...'
 })
 
 // publish event object
 
-ee.emit('patient', 'create', { ... })
+ee.emit('send', {
+  to: 'widget/create',
+  from: '...',
+  subject: 'widget',
+  verb: 'create',
+  object: {
+
+  }
+})
 
 // subscribe event object
-ee.on('patient', 'create', function(obj) {
-  
-}, function(err) {
-  
+ee.on('widget/create', function(event) {
+  // do stuff
+  var responseEvent = {
+    to: event.from,
+    object: {
+
+    }
+  }
+  ee.emit('send', responseEvent) 
 })
 
 ```
+
+## Install
+
+``` sh
+npm i @twilson63/palmetto-fire
+```
+
+## Test
+
+``` sh
+npm test
+```
+
+
 
