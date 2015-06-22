@@ -11,7 +11,7 @@ var palmetto = require('@twilson63/palmetto-fire')
 
 var ee = palmetto({
   endpoint: 'https://firebase.io/foobar',
-  token: '...firebase auth token...'
+  token: '...firebase secret...'
   app: '...'
 })
 
@@ -36,7 +36,7 @@ ee.on('widget/create', function(event) {
 
     }
   }
-  ee.emit('send', responseEvent) 
+  ee.emit('send', responseEvent)
 })
 
 ```

@@ -8,7 +8,10 @@ test('subscribe', function (t) {
     endAt: function () {
       return fbMock
     },
-    limit: function () {
+    authWithCustomToken: function (token, cb) {
+      cb(null, true)
+    },
+    limitToLast: function () {
       return fbMock
     },
     on: function (s, fn) {
@@ -31,7 +34,7 @@ test('subscribe', function (t) {
       }, 100)
     },
     push: function (event) {
-      
+
     }
   }
 
@@ -40,8 +43,9 @@ test('subscribe', function (t) {
   })
 
   var ee = palmetto({
-    endpoint: 'https://tinylog.firebaseio.com/',
-    app: 'tinylog'
+    endpoint: 'https://rxnorm-services.firebaseio.com/',
+    app: 'beep',
+    token: 'foo'
   })
 
   ee.on('beepboop', function (event) {

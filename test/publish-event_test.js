@@ -8,7 +8,10 @@ test('publish', function (t) {
     endAt: function () {
       return fbMock
     },
-    limit: function () {
+    authWithCustomToken: function () {
+
+    },
+    limitToLast: function () {
       return fbMock
     },
     on: function (s, fn) {
@@ -31,8 +34,9 @@ test('publish', function (t) {
   })
 
   var ee = palmetto({
-    endpoint: 'https://tinylog.firebaseio.com/',
-    app: 'tinylog'
+    endpoint: 'https://rxnorm-services.firebaseio.com/',
+    app: 'beep',
+    token: 'foo'
   })
 
   ee.emit('send', {
@@ -42,7 +46,7 @@ test('publish', function (t) {
     verb: 'create',
     object: { data: 'goes here'}
   })
-  
+
   t.end()
-  
+
 })
